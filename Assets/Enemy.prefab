@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c403089c9a89b54488e9e225c4513dab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Enemy
+  unitName: Skeleton
   damage: 3
   maxHP: 15
   currentHP: 15

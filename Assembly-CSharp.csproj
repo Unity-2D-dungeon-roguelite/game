@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Unit.cs" />
     <Compile Include="Assets\BattleSystem.cs" />
+    <Compile Include="Assets\BattleHud.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
