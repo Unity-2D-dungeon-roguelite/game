@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public string unitName;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int damage;
+
+    public int maxHP;
+    public int currentHP;
+
+	public bool TakeDamage(int dmg)
+	{
+		currentHP -= dmg;
+
+		if (currentHP <= 0)
+			return true;
+		else
+			return false;
+	}
 }
