@@ -638,7 +638,10 @@ MonoBehaviour:
   room8: {fileID: 313293003}
   room9: {fileID: 2093298546}
   finalRoom: {fileID: 2065277567}
-  player: {fileID: 3671556776659773366, guid: cb8a1f1295ca33f4e8bfc23ddd3ebaae, type: 3}
+  playerObject: {fileID: 3671556776659773366, guid: cb8a1f1295ca33f4e8bfc23ddd3ebaae, type: 3}
+  arrow: {fileID: 1372629186803062836, guid: a427ba2bb990ac246a876d9220d66455, type: 3}
+  player: {fileID: 0}
+  state: 0
 --- !u!4 &641688580
 Transform:
   m_ObjectHideFlags: 0
