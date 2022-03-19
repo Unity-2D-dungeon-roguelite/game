@@ -22,9 +22,15 @@ public class BattleSystem : MonoBehaviour
 	public Transform enemyBattleStation4;
 
 	Unit playerUnit;
-	Unit enemyUnit;
+
+	Unit enemyUnit1;
+	Unit enemyUnit2;
+	Unit enemyUnit3;
+	Unit enemyUnit4;
 
 	public Text InfoText;
+
+	public BattleHud enemyHud;
 
 	public BattleState state;
 
@@ -42,33 +48,36 @@ public class BattleSystem : MonoBehaviour
 
 		if (enemy1 != null){
 			GameObject enemyGO1 = Instantiate(enemy1, enemyBattleStation1);
-			enemyUnit = enemyGO1.GetComponent<Unit>();
+			enemyUnit1 = enemyGO1.GetComponent<Unit>();
+			enemyUnit1.battleSystem = this;
 		}
 		if (enemy2 != null){
 			GameObject enemyGO2 = Instantiate(enemy2, enemyBattleStation2);
+			enemyUnit2 = enemyGO2.GetComponent<Unit>();
+			enemyUnit2.battleSystem = this;
 		}
 		if (enemy3 != null){
 			GameObject enemyGO3 = Instantiate(enemy3, enemyBattleStation3);
+			enemyUnit3 = enemyGO3.GetComponent<Unit>();
+			enemyUnit3.battleSystem = this;
 		}
 		if (enemy4 != null){
 			GameObject enemyGO4 = Instantiate(enemy4, enemyBattleStation4);
+			enemyUnit4 = enemyGO4.GetComponent<Unit>();
+			enemyUnit4.battleSystem = this;
 		}
 
 		InfoText.text = "Test Battle";
-
-		//enemyHud.SetupHud(enemyUnit);
-		//playerHud.SetupHud(playerUnit);
-
+		
 		yield return new WaitForSeconds(2f);
 
 		state = BattleState.PLAYERTURN;
+		PlayerTurn();
 	}
 
 	IEnumerator PlayerLightAttack()
 	{
-		bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
-
-		//enemyHud.UpdateHud(enemyUnit);
+		bool isDead = enemyUnit1.TakeDamage(playerUnit.damage);
 		InfoText.text = "The player hits the enemy!";
 
 		yield return new WaitForSeconds(2f);
@@ -92,8 +101,7 @@ public class BattleSystem : MonoBehaviour
 
 		yield return new WaitForSeconds(1f);
 
-		bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
-		//playerHud.UpdateHud(playerUnit);
+		bool isDead = playerUnit.TakeDamage(enemyUnit1.damage);
 
 		yield return new WaitForSeconds(1f);
 
@@ -107,7 +115,6 @@ public class BattleSystem : MonoBehaviour
 			state = BattleState.PLAYERTURN;
 			PlayerTurn();
 		}
-
 	}
 
 	void EndBattle() 
@@ -124,7 +131,15 @@ public class BattleSystem : MonoBehaviour
 
 	void PlayerTurn()
 	{
-		InfoText.text = "Player turn";
+	InfoText.text = "Player turn";
+	}
+
+	public void MyAction(Unit enemy){
+		InfoText.text = "Clicked";
+		if (state != BattleState.PLAYERTURN){
+			return;
+		}
+		enemyHud.SetupHud(enemy);
 	}
 
 	public void OnLightAttackButton()

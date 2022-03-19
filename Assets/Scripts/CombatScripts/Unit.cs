@@ -11,6 +11,10 @@ public class Unit : MonoBehaviour
     public int maxHP;
     public int currentHP;
 
+	public BattleSystem battleSystem;
+
+	public bool clicked = false;
+
 	public bool TakeDamage(int dmg)
 	{
 		currentHP -= dmg;
@@ -19,5 +23,8 @@ public class Unit : MonoBehaviour
 			return true;
 		else
 			return false;
+	}
+	void OnMouseDown(){
+		battleSystem.MyAction(this);
 	}
 }
