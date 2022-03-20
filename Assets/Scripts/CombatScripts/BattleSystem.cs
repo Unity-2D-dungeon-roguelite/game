@@ -31,8 +31,11 @@ public class BattleSystem : MonoBehaviour
 	public Text InfoText;
 
 	public BattleHud enemyHud;
+	public PlayerHud playerHud;
 
 	public BattleState state;
+
+	Unit selectedEnemy;
 
 	void Start()
     {
@@ -43,8 +46,6 @@ public class BattleSystem : MonoBehaviour
 
 	IEnumerator SetupBattle()
 	{
-
-		GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
 
 		if (enemy1 != null){
 			GameObject enemyGO1 = Instantiate(enemy1, enemyBattleStation1);
@@ -67,6 +68,11 @@ public class BattleSystem : MonoBehaviour
 			enemyUnit4.battleSystem = this;
 		}
 
+		GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
+		playerUnit = playerGO.GetComponent<Unit>();
+
+		playerHud.SetupHud(playerUnit);
+
 		InfoText.text = "Test Battle";
 		
 		yield return new WaitForSeconds(2f);
@@ -77,7 +83,7 @@ public class BattleSystem : MonoBehaviour
 
 	IEnumerator PlayerLightAttack()
 	{
-		bool isDead = enemyUnit1.TakeDamage(playerUnit.damage);
+		bool isDead = selectedEnemy.TakeDamage(playerUnit.damage);
 		InfoText.text = "The player hits the enemy!";
 
 		yield return new WaitForSeconds(2f);
@@ -96,25 +102,58 @@ public class BattleSystem : MonoBehaviour
 
 	IEnumerator EnemyTurn()
 	{
+		InfoText.text = "Enemy turn!";
 
-		InfoText.text = "The enemy attacks the player!";
+		if (enemy1 != null){
+			InfoText.text = "Enemy 1 attacks!";
+			bool isDead = playerUnit.TakeDamage(enemyUnit1.damage);
+			playerHud.UpdateHud(playerUnit);
+			if (isDead)
+			{
+				state = BattleState.LOST;
+				EndBattle();
+			}
+			yield return new WaitForSeconds(1f);
+		}
+		if (enemy2 != null){
+			InfoText.text = "Enemy 2 attacks!";
+			bool isDead = playerUnit.TakeDamage(enemyUnit2.damage);
+			playerHud.UpdateHud(playerUnit);
+			if (isDead)
+			{
+				state = BattleState.LOST;
+				EndBattle();
+			}
+			yield return new WaitForSeconds(1f);
+		}
+		if (enemy3 != null){
+			InfoText.text = "Enemy 3 attacks!";
+			bool isDead = playerUnit.TakeDamage(enemyUnit3.damage);
+			playerHud.UpdateHud(playerUnit);
+			if (isDead)
+			{
+				state = BattleState.LOST;
+				EndBattle();
+			}
+			yield return new WaitForSeconds(1f);
+		}
+
+		if (enemy4 != null){
+			InfoText.text = "Enemy 4 attacks!";
+			bool isDead = playerUnit.TakeDamage(enemyUnit4.damage);
+			playerHud.UpdateHud(playerUnit);
+			if (isDead)
+			{
+				state = BattleState.LOST;
+				EndBattle();
+			}
+		}
 
 		yield return new WaitForSeconds(1f);
 
-		bool isDead = playerUnit.TakeDamage(enemyUnit1.damage);
-
-		yield return new WaitForSeconds(1f);
-
-		if (isDead)
-		{
-			state = BattleState.LOST;
-			EndBattle();
-		}
-		else
-		{
-			state = BattleState.PLAYERTURN;
-			PlayerTurn();
-		}
+		state = BattleState.PLAYERTURN;
+		PlayerTurn();
+		
 	}
 
 	void EndBattle() 
@@ -140,9 +179,10 @@ public class BattleSystem : MonoBehaviour
 			return;
 		}
 		enemyHud.SetupHud(enemy);
+		selectedEnemy = enemy;
 	}
 
-	public void OnLightAttackButton()
+	public void OnAttackButton()
 	{
 		if (state != BattleState.PLAYERTURN)
 			return;

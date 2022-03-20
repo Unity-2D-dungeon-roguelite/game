@@ -46,9 +46,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Skeleton
-  damage: 3
+  damage: 1
   maxHP: 15
   currentHP: 15
+  battleSystem: {fileID: 0}
   clicked: 0
 --- !u!61 &8190119880355387950
 BoxCollider2D:
