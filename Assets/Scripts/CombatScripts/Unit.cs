@@ -24,6 +24,11 @@ public class Unit : MonoBehaviour
 		else
 			return false;
 	}
+	    public void Remove()
+    {
+        Destroy(this.gameObject);
+    }
+
 	void OnMouseDown(){
 		battleSystem.MyAction(this);
 	}

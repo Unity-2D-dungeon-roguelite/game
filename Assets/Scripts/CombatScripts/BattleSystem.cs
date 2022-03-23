@@ -35,7 +35,11 @@ public class BattleSystem : MonoBehaviour
 
 	public BattleState state;
 
+	public TimeBar timeBar;
+
 	Unit selectedEnemy;
+
+	int enemies;
 
 	void Start()
     {
@@ -51,21 +55,25 @@ public class BattleSystem : MonoBehaviour
 			GameObject enemyGO1 = Instantiate(enemy1, enemyBattleStation1);
 			enemyUnit1 = enemyGO1.GetComponent<Unit>();
 			enemyUnit1.battleSystem = this;
+			enemies++;
 		}
 		if (enemy2 != null){
 			GameObject enemyGO2 = Instantiate(enemy2, enemyBattleStation2);
 			enemyUnit2 = enemyGO2.GetComponent<Unit>();
 			enemyUnit2.battleSystem = this;
+			enemies++;
 		}
 		if (enemy3 != null){
 			GameObject enemyGO3 = Instantiate(enemy3, enemyBattleStation3);
 			enemyUnit3 = enemyGO3.GetComponent<Unit>();
 			enemyUnit3.battleSystem = this;
+			enemies++;
 		}
 		if (enemy4 != null){
 			GameObject enemyGO4 = Instantiate(enemy4, enemyBattleStation4);
 			enemyUnit4 = enemyGO4.GetComponent<Unit>();
 			enemyUnit4.battleSystem = this;
+			enemies++;
 		}
 
 		GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
@@ -84,14 +92,23 @@ public class BattleSystem : MonoBehaviour
 	IEnumerator PlayerLightAttack()
 	{
 		bool isDead = selectedEnemy.TakeDamage(playerUnit.damage);
+		timeBar.MovePlayer(890);
 		InfoText.text = "The player hits the enemy!";
 
 		yield return new WaitForSeconds(2f);
 
 		if (isDead)
 		{
-			state = BattleState.WON;
-			EndBattle();
+			enemies--;
+			selectedEnemy.Remove();
+			InfoText.text = "Enemy died";
+			if (enemies <= 0)
+			{
+				state = BattleState.WON;
+				EndBattle();
+			}
+			state = BattleState.ENEMYTURN;
+			StartCoroutine(EnemyTurn());
 		}
 		else
 		{
@@ -103,8 +120,9 @@ public class BattleSystem : MonoBehaviour
 	IEnumerator EnemyTurn()
 	{
 		InfoText.text = "Enemy turn!";
+		yield return new WaitForSeconds(1f);
 
-		if (enemy1 != null){
+		if (enemyUnit1 != null){
 			InfoText.text = "Enemy 1 attacks!";
 			bool isDead = playerUnit.TakeDamage(enemyUnit1.damage);
 			playerHud.UpdateHud(playerUnit);
@@ -115,7 +133,7 @@ public class BattleSystem : MonoBehaviour
 			}
 			yield return new WaitForSeconds(1f);
 		}
-		if (enemy2 != null){
+		if (enemyUnit2 != null){
 			InfoText.text = "Enemy 2 attacks!";
 			bool isDead = playerUnit.TakeDamage(enemyUnit2.damage);
 			playerHud.UpdateHud(playerUnit);
@@ -126,7 +144,7 @@ public class BattleSystem : MonoBehaviour
 			}
 			yield return new WaitForSeconds(1f);
 		}
-		if (enemy3 != null){
+		if (enemyUnit3 != null){
 			InfoText.text = "Enemy 3 attacks!";
 			bool isDead = playerUnit.TakeDamage(enemyUnit3.damage);
 			playerHud.UpdateHud(playerUnit);
@@ -138,7 +156,7 @@ public class BattleSystem : MonoBehaviour
 			yield return new WaitForSeconds(1f);
 		}
 
-		if (enemy4 != null){
+		if (enemyUnit4 != null){
 			InfoText.text = "Enemy 4 attacks!";
 			bool isDead = playerUnit.TakeDamage(enemyUnit4.damage);
 			playerHud.UpdateHud(playerUnit);
