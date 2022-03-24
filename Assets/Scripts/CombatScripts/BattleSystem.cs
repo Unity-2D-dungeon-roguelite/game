@@ -40,6 +40,7 @@ public class BattleSystem : MonoBehaviour
 	Unit selectedEnemy;
 
 	int enemies;
+	bool attackReady = false;
 
 	void Start()
     {
@@ -188,23 +189,28 @@ public class BattleSystem : MonoBehaviour
 
 	void PlayerTurn()
 	{
-	InfoText.text = "Player turn";
+	InfoText.text = "Player turn, Select an action";
 	}
 
+	public void showInfo(Unit enemy){
+		if (state != BattleState.PLAYERTURN || attackReady != true)
+			return;
+		enemyHud.SetupHud(enemy);
+	}
 	public void MyAction(Unit enemy){
-		InfoText.text = "Clicked";
-		if (state != BattleState.PLAYERTURN){
+		if (state != BattleState.PLAYERTURN || attackReady != true){
 			return;
 		}
-		enemyHud.SetupHud(enemy);
 		selectedEnemy = enemy;
+		attackReady = false;
+		StartCoroutine(PlayerLightAttack());
 	}
 
 	public void OnAttackButton()
 	{
 		if (state != BattleState.PLAYERTURN)
 			return;
-
-		StartCoroutine(PlayerLightAttack());
+		attackReady = true;
+		InfoText.text = "Select an enemy";
 	}
 }

@@ -29,6 +29,9 @@ public class Unit : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+	void OnMouseOver(){
+		battleSystem.showInfo(this);
+	}
 	void OnMouseDown(){
 		battleSystem.MyAction(this);
 	}
