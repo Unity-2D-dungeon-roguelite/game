@@ -9,11 +9,11 @@ public class PlayerHud : MonoBehaviour
 
     public void SetupHud(Unit unit)
     {
-        healthText.text = unit.maxHP + "/" + unit.currentHP;
+        healthText.text = unit.currentHP + "/" + unit.maxHP;
     }
 
     public void UpdateHud(Unit unit)
     {
-        healthText.text = unit.maxHP + "/" + unit.currentHP;
+        healthText.text = unit.currentHP + "/" + unit.maxHP;
     }
 }
