@@ -35,8 +35,6 @@ public class BattleSystem : MonoBehaviour
 
 	public BattleState state;
 
-	public TimeBar timeBar;
-
 	Unit selectedEnemy;
 
 	int enemies;
@@ -93,7 +91,6 @@ public class BattleSystem : MonoBehaviour
 	IEnumerator PlayerLightAttack()
 	{
 		bool isDead = selectedEnemy.TakeDamage(playerUnit.damage);
-		timeBar.MovePlayer(890);
 		InfoText.text = "The player hits the enemy!";
 
 		yield return new WaitForSeconds(2f);
