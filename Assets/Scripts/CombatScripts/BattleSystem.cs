@@ -38,11 +38,14 @@ public class BattleSystem : MonoBehaviour
 	Unit selectedEnemy;
 
 	int enemies;
+	int damageGiven;
 	bool attackReady = false;
+
+	public RectTransform skillsPanel;
 
 	void Start()
     {
-
+		skillsPanel.localScale = new Vector3(0, 0, 0);
 		state = BattleState.START;
 		StartCoroutine(SetupBattle());
 	}
@@ -88,9 +91,10 @@ public class BattleSystem : MonoBehaviour
 		PlayerTurn();
 	}
 
-	IEnumerator PlayerLightAttack()
+	IEnumerator PlayerAttack()
 	{
-		bool isDead = selectedEnemy.TakeDamage(playerUnit.damage);
+		skillsPanel.localScale = new Vector3(0, 0, 0);
+		bool isDead = selectedEnemy.TakeDamage(damageGiven);
 		InfoText.text = "The player hits the enemy!";
 
 		yield return new WaitForSeconds(2f);
@@ -194,19 +198,40 @@ public class BattleSystem : MonoBehaviour
 			return;
 		enemyHud.SetupHud(enemy);
 	}
+
 	public void MyAction(Unit enemy){
 		if (state != BattleState.PLAYERTURN || attackReady != true){
 			return;
 		}
 		selectedEnemy = enemy;
 		attackReady = false;
-		StartCoroutine(PlayerLightAttack());
+		StartCoroutine(PlayerAttack());
 	}
 
 	public void OnAttackButton()
 	{
 		if (state != BattleState.PLAYERTURN)
 			return;
+		damageGiven = 5;
+		attackReady = true;
+		InfoText.text = "Select an enemy";
+	}
+
+	public void OnSkillsButton()
+	{
+		if (state != BattleState.PLAYERTURN)
+		{
+			return;
+		}
+		skillsPanel.localScale = new Vector3(1, 1, 1);
+	}
+
+	public void OnSkillHaymakerClick()
+	{
+		if (state != BattleState.PLAYERTURN)
+			return;
+			
+		damageGiven = 8;
 		attackReady = true;
 		InfoText.text = "Select an enemy";
 	}

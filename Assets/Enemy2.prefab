@@ -129,8 +129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Skeleton 2
   damage: 1
-  maxHP: 1
-  currentHP: 1
+  maxHP: 10
+  currentHP: 10
   battleSystem: {fileID: 0}
   clicked: 0
 --- !u!61 &6187901804487247953
