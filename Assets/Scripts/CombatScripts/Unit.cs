@@ -15,6 +15,14 @@ public class Unit : MonoBehaviour
 
 	public bool clicked = false;
 
+	//Only for enemy 
+	public bool basicAttack;
+    public bool idle;
+    public bool heal;
+    public bool stun;
+    public bool staDrain;
+    public bool hpDrain;
+
 	public bool TakeDamage(int dmg)
 	{
 		currentHP -= dmg;

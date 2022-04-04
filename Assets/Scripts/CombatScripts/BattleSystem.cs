@@ -42,6 +42,7 @@ public class BattleSystem : MonoBehaviour
 	bool attackReady = false;
 
 	public RectTransform skillsPanel;
+	System.Random rnd = new System.Random();
 
 	void Start()
     {
@@ -125,42 +126,77 @@ public class BattleSystem : MonoBehaviour
 		yield return new WaitForSeconds(1f);
 
 		if (enemyUnit1 != null){
+			List<System.Action> actions = new List<System.Action>();
+
+			if (enemyUnit1.basicAttack){
+				actions.Add(EnemyBasicAttack);
+			}
+			if (enemyUnit1.idle){
+				actions.Add(EnemyIdle);
+			}
+
+			int numOfActions = actions.Count;
+
 			InfoText.text = "Enemy 1 ";
-			EnemyBasicAttack();
+
+			System.Action action = actions[rnd.Next(numOfActions)];
+			action();
 			yield return new WaitForSeconds(1f);
 		}
 		if (enemyUnit2 != null){
-			InfoText.text = "Enemy 2 attacks!";
-			bool isDead = playerUnit.TakeDamage(enemyUnit2.damage);
-			playerHud.UpdateHud(playerUnit);
-			if (isDead)
-			{
-				state = BattleState.LOST;
-				EndBattle();
+			List<System.Action> actions = new List<System.Action>();
+
+			if (enemyUnit1.basicAttack){
+				actions.Add(EnemyBasicAttack);
 			}
+			if (enemyUnit1.idle){
+				actions.Add(EnemyIdle);
+			}
+
+			int numOfActions = actions.Count;
+
+			InfoText.text = "Enemy 2 ";
+
+			System.Action action = actions[rnd.Next(numOfActions)];
+			action();
 			yield return new WaitForSeconds(1f);
 		}
 		if (enemyUnit3 != null){
-			InfoText.text = "Enemy 3 attacks!";
-			bool isDead = playerUnit.TakeDamage(enemyUnit3.damage);
-			playerHud.UpdateHud(playerUnit);
-			if (isDead)
-			{
-				state = BattleState.LOST;
-				EndBattle();
+			List<System.Action> actions = new List<System.Action>();
+
+			if (enemyUnit1.basicAttack){
+				actions.Add(EnemyBasicAttack);
 			}
+			if (enemyUnit1.idle){
+				actions.Add(EnemyIdle);
+			}
+
+			int numOfActions = actions.Count;
+
+			InfoText.text = "Enemy 3 ";
+
+			System.Action action = actions[rnd.Next(numOfActions)];
+			action();
 			yield return new WaitForSeconds(1f);
 		}
 
 		if (enemyUnit4 != null){
-			InfoText.text = "Enemy 4 attacks!";
-			bool isDead = playerUnit.TakeDamage(enemyUnit4.damage);
-			playerHud.UpdateHud(playerUnit);
-			if (isDead)
-			{
-				state = BattleState.LOST;
-				EndBattle();
+			List<System.Action> actions = new List<System.Action>();
+
+			if (enemyUnit1.basicAttack){
+				actions.Add(EnemyBasicAttack);
 			}
+			if (enemyUnit1.idle){
+				actions.Add(EnemyIdle);
+			}
+
+			int numOfActions = actions.Count;
+
+			InfoText.text = "Enemy 4 ";
+
+			System.Action action = actions[rnd.Next(numOfActions)];
+			action();
+			yield return new WaitForSeconds(1f);
 		}
 
 		yield return new WaitForSeconds(1f);
@@ -239,5 +275,8 @@ public class BattleSystem : MonoBehaviour
 			state = BattleState.LOST;
 			EndBattle();
 		}
+	}
+	public void EnemyIdle(){
+		InfoText.text += "just stares...";
 	}
 }
