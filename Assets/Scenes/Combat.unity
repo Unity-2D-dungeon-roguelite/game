@@ -631,10 +631,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 1833421255605133643, guid: 3a7c02062862da8489993d7bb2d04b68, type: 3}
-  enemy1: {fileID: 3103839341475926667, guid: 6af33292d83ae934f8a1d7f75327df75, type: 3}
-  enemy2: {fileID: 3103839341475926667, guid: 6af33292d83ae934f8a1d7f75327df75, type: 3}
-  enemy3: {fileID: 3103839341475926667, guid: 6af33292d83ae934f8a1d7f75327df75, type: 3}
-  enemy4: {fileID: 3103839341475926667, guid: 6af33292d83ae934f8a1d7f75327df75, type: 3}
+  enemy1: {fileID: 1902611028409135468, guid: e6b77a1e995ab5b47ae51c6a590b9517, type: 3}
+  enemy2: {fileID: 1902611028409135468, guid: e6b77a1e995ab5b47ae51c6a590b9517, type: 3}
+  enemy3: {fileID: 1902611028409135468, guid: e6b77a1e995ab5b47ae51c6a590b9517, type: 3}
+  enemy4: {fileID: 1902611028409135468, guid: e6b77a1e995ab5b47ae51c6a590b9517, type: 3}
   playerBattleStation: {fileID: 873130730}
   enemyBattleStation1: {fileID: 704500228}
   enemyBattleStation2: {fileID: 978299840}

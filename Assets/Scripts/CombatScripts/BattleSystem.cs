@@ -21,7 +21,7 @@ public class BattleSystem : MonoBehaviour
 	public Transform enemyBattleStation3;
 	public Transform enemyBattleStation4;
 
-	Unit playerUnit;
+	public Unit playerUnit;
 
 	Unit enemyUnit1;
 	Unit enemyUnit2;
@@ -125,14 +125,8 @@ public class BattleSystem : MonoBehaviour
 		yield return new WaitForSeconds(1f);
 
 		if (enemyUnit1 != null){
-			InfoText.text = "Enemy 1 attacks!";
-			bool isDead = playerUnit.TakeDamage(enemyUnit1.damage);
-			playerHud.UpdateHud(playerUnit);
-			if (isDead)
-			{
-				state = BattleState.LOST;
-				EndBattle();
-			}
+			InfoText.text = "Enemy 1 ";
+			EnemyBasicAttack();
 			yield return new WaitForSeconds(1f);
 		}
 		if (enemyUnit2 != null){
@@ -234,5 +228,16 @@ public class BattleSystem : MonoBehaviour
 		damageGiven = 8;
 		attackReady = true;
 		InfoText.text = "Select an enemy";
+	}
+
+	public void EnemyBasicAttack(){
+		InfoText.text += "attacks!";
+		bool isDead = playerUnit.TakeDamage(enemyUnit1.damage);
+		playerHud.UpdateHud(playerUnit);
+		if (isDead)
+		{
+			state = BattleState.LOST;
+			EndBattle();
+		}
 	}
 }

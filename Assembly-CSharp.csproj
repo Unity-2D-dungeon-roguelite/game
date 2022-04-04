@@ -49,6 +49,7 @@
      <Compile Include="Assets\m\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
      <Compile Include="Assets\m\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
      <Compile Include="Assets\m\Examples &amp; Extras\Scripts\Benchmark03.cs" />
+     <Compile Include="Assets\Scripts\CombatScripts\EnemySkeleton.cs" />
      <Compile Include="Assets\m\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
      <Compile Include="Assets\m\Examples &amp; Extras\Scripts\Benchmark04.cs" />
      <Compile Include="Assets\m\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
@@ -79,6 +80,7 @@
      <Compile Include="Assets\m\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
      <Compile Include="Assets\m\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\m\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
+     <Compile Include="Assets\Scripts\CombatScripts\NewBehaviourScript.cs" />
      <None Include="Assets\m\Shaders\TMPro.cginc" />
      <None Include="Assets\m\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\m\Shaders\TMP_Bitmap.shader" />
