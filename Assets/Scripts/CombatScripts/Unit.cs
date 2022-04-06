@@ -10,10 +10,12 @@ public class Unit : MonoBehaviour
 
     public int maxHP;
     public int currentHP;
+	
+	public int maxSta;
+	public int currentSta;
 
 	public BattleSystem battleSystem;
-
-	public bool clicked = false;
+	public bool riposte; 
 
 	//Only for enemy 
 	public bool basicAttack;
@@ -31,6 +33,10 @@ public class Unit : MonoBehaviour
 			return true;
 		else
 			return false;
+	}
+	public void UpdateSta(int amount)
+	{
+		currentSta += amount;
 	}
 	    public void Remove()
     {

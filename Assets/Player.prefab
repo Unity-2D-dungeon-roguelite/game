@@ -48,6 +48,16 @@ MonoBehaviour:
   damage: 5
   maxHP: 20
   currentHP: 20
+  maxSta: 20
+  currentSta: 2
+  battleSystem: {fileID: 0}
+  riposte: 0
+  basicAttack: 0
+  idle: 0
+  heal: 0
+  stun: 0
+  staDrain: 0
+  hpDrain: 0
 --- !u!1 &1833421256257665106
 GameObject:
   m_ObjectHideFlags: 0

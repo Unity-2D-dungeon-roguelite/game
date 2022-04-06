@@ -40,6 +40,7 @@ public class BattleSystem : MonoBehaviour
 	int enemies;
 	int damageGiven;
 	bool attackReady = false;
+	int staSpent;
 
 	public RectTransform skillsPanel;
 	System.Random rnd = new System.Random();
@@ -95,6 +96,8 @@ public class BattleSystem : MonoBehaviour
 	IEnumerator PlayerAttack()
 	{
 		skillsPanel.localScale = new Vector3(0, 0, 0);
+		playerUnit.UpdateSta(-staSpent);
+		playerHud.UpdateHud(playerUnit);
 		bool isDead = selectedEnemy.TakeDamage(damageGiven);
 		InfoText.text = "The player hits the enemy!";
 
@@ -242,6 +245,7 @@ public class BattleSystem : MonoBehaviour
 	{
 		if (state != BattleState.PLAYERTURN)
 			return;
+		staSpent = 0;
 		damageGiven = 5;
 		attackReady = true;
 		InfoText.text = "Select an enemy";
@@ -258,12 +262,61 @@ public class BattleSystem : MonoBehaviour
 
 	public void OnSkillHaymakerClick()
 	{
+		if (state != BattleState.PLAYERTURN )
+			return;
+		
+		else if (playerUnit.currentSta < 6){
+			InfoText.text = "Not enough stamina";
+			attackReady = false;
+		}
+		else{
+			staSpent = 6;
+			damageGiven = 8;
+			attackReady = true;
+			InfoText.text = "Select an enemy";
+		}
+	}
+
+	public void OnSkillBonkClick()
+	{
 		if (state != BattleState.PLAYERTURN)
 			return;
 			
-		damageGiven = 8;
-		attackReady = true;
-		InfoText.text = "Select an enemy";
+		else if (playerUnit.currentSta < 8){
+			InfoText.text = "Not enough stamina";
+			attackReady = false;
+		}
+		else{
+			staSpent = 8;
+			damageGiven = 6;
+			attackReady = true;
+			InfoText.text = "Select an enemy";
+		}
+	}
+
+	public void OnSkillRipsoteClick()
+	{
+		if (state != BattleState.PLAYERTURN)
+			return;
+
+		else if (playerUnit.currentSta < 6){
+			InfoText.text = "Not enough stamina";
+			attackReady = false;
+		}
+		else{
+			playerUnit.UpdateSta(-6);
+			playerUnit.riposte = true;
+			StartCoroutine(EnemyTurn());
+		}
+	}
+
+	public void OnSkillBreatherClick()
+	{
+		if (state != BattleState.PLAYERTURN)
+			return;
+			
+		playerUnit.UpdateSta(5);
+		StartCoroutine(EnemyTurn());
 	}
 
 	public void EnemyBasicAttack(){

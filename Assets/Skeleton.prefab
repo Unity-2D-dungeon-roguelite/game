@@ -49,8 +49,16 @@ MonoBehaviour:
   damage: 2
   maxHP: 10
   currentHP: 10
+  maxSta: 0
+  currentSta: 0
   battleSystem: {fileID: 0}
-  clicked: 0
+  riposte: 0
+  basicAttack: 0
+  idle: 0
+  heal: 0
+  stun: 0
+  staDrain: 0
+  hpDrain: 0
 --- !u!61 &4281959013513015072
 BoxCollider2D:
   m_ObjectHideFlags: 0
