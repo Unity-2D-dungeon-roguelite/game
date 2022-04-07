@@ -5,14 +5,14 @@ using UnityEngine;
 public class RoomNode : MonoBehaviour
 {
 
-    private bool _hasPlayer;
-    private GameObject[] _nextRooms = null;
-
+    //private bool _hasPlayer;
+    private GameObject[] _nextRooms;
+    /*
     public bool HasPlayer
     {
         get { return _hasPlayer; }
         set { _hasPlayer = value; }
-    }
+    }*/
 
     public GameObject[] NextRooms
     {
@@ -23,7 +23,7 @@ public class RoomNode : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        _nextRooms = null;
     }
 
     // Update is called once per frame
