@@ -33,7 +33,6 @@ public class NavigationSystem : MonoBehaviour
     public GameObject playerObject;
     public GameObject arrow;
     public GameObject player;
-    private GameObject[] roomList;
     private GameObject playerRoom;
 
     //state variables
@@ -63,68 +62,65 @@ public class NavigationSystem : MonoBehaviour
         room8.GetComponent<RoomNode>().NextRooms = new GameObject[] { room9 };
         room9.GetComponent<RoomNode>().NextRooms = new GameObject[] { finalRoom };
 
-        roomList = new GameObject[11];
-        roomList[0] = startRoom;
-        roomList[1] = room1;
-        roomList[2] = room2;
-        roomList[3] = room3;
-        roomList[4] = room4;
-        roomList[5] = room5;
-        roomList[6] = room6;
-        roomList[7] = room7;
-        roomList[8] = room8;
-        roomList[9] = room9;
-        roomList[10] = finalRoom;
-
         state = NavigationState.ROOM_EVENT;
     }
 
     private void EnterRoom()
     {
+        // Load room scene
         //SceneManager.LoadScene("Combat");
     }
 
+    /// <summary>
+    /// Returns the appropriate arrows pointing to the next rooms.
+    /// </summary>
+    /// <returns></returns>
     private Paths GeneratePaths()
     {
-        // instance properties
+        // instance properties of arrow
         float xDistance;
         float yDistance;
         int rotation;
 
-        // instances
         GameObject arrowObject;
         Paths generatedPaths = new Paths(playerRoom.GetComponent<RoomNode>().NextRooms.Length);
 
         int count = 0;
 
-        foreach (GameObject room in playerRoom.GetComponent<RoomNode>().NextRooms)
+        foreach (GameObject room in playerRoom.GetComponent<RoomNode>().NextRooms) // looks at each next room
         {
-            if (room.transform.position.y > playerRoom.transform.position.y)
+            if (room.transform.position.y > playerRoom.transform.position.y) // if the next room is above player room (current room)
             {
+                // set variables to appropriate values depending where is next room
                 xDistance = playerRoom.transform.position.x + ARROW_X_DISTANCE;
                 yDistance = playerRoom.transform.position.y + ARROW_Y_DISTANCE;
                 rotation = UPWARD_ROTATION;
 
+                // make room and rotate it accordingly
                 arrowObject = Instantiate(arrow, new Vector3(xDistance, yDistance, 0), Quaternion.identity);
                 arrowObject.transform.Rotate(0, 0, rotation);
             }
             else if (room.transform.position.y < playerRoom.transform.position.y)
             {
+                // set variables to appropriate values depending where is next room
                 xDistance = playerRoom.transform.position.x + ARROW_X_DISTANCE;
                 yDistance = playerRoom.transform.position.y - ARROW_Y_DISTANCE;
                 rotation = DOWNWARD_ROTATION;
 
+                // make room and rotate it accordingly
                 arrowObject = Instantiate(arrow, new Vector3(xDistance, yDistance, 0), Quaternion.identity);
                 arrowObject.transform.Rotate(0, 0, rotation);
             }
             else
             {
+                // set variables to appropriate values depending where is next room
                 xDistance = playerRoom.transform.position.x + ONE_ROOM_ARROW_X_DISTANCE;
+                // make room and rotate it accordingly
                 arrowObject = Instantiate(arrow, new Vector3(xDistance, 0, 0), Quaternion.identity);
                 arrowObject.transform.Rotate(0f, 0f, -90f);
             }
 
-            generatedPaths.NextPaths[count] = arrowObject;
+            generatedPaths.NextPaths[count] = arrowObject; // arrow object is added to next paths to later display
             ++count;
         }
 
@@ -141,10 +137,10 @@ public class NavigationSystem : MonoBehaviour
             {
                 Debug.Log("Enter " + Time.frameCount);
                 EnterRoom();
-                state = NavigationState.CHOOSE_PATH;
+                state = NavigationState.CHOOSE_PATH; // after room scene, choose next paths
             }
 
-            if (Input.GetKey(KeyCode.M))
+            else if (Input.GetKey(KeyCode.M))
             {
                 // Load Menu Screen
                 SceneManager.LoadScene(3);
@@ -157,32 +153,33 @@ public class NavigationSystem : MonoBehaviour
             if (playerSelection is true && Input.GetKeyDown(KeyCode.UpArrow))
             {
                 Debug.Log("Up");
-                paths.SelectNextArrowUp();
+                paths.SelectNextArrowUp(); //selects new arrow upwards
             }
 
-            if (playerSelection is true && Input.GetKeyDown(KeyCode.DownArrow))
+            else if (playerSelection is true && Input.GetKeyDown(KeyCode.DownArrow))
             {
                 Debug.Log("Down");
-                paths.SelectNextArrowDown();
+                paths.SelectNextArrowDown(); //selects new arrow downwards
             }
 
-            if (playerSelection is true && (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return)))
+            // when user hits enter on a selected path
+            else if (playerSelection is true && (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return)))
             {
                 Debug.Log("Next room selected " + Time.frameCount);
 
-                playerRoom = playerRoom.GetComponent<RoomNode>().NextRooms[paths.Selection];
+                playerRoom = playerRoom.GetComponent<RoomNode>().NextRooms[paths.Selection]; // assigns player room to room selected
                 player.GetComponent<PlayerMover>().MovePlayerOnMap(playerRoom.transform.position);
 
                 playerSelection = false;
                 paths.DestroyPaths();
-                state = NavigationState.ROOM_EVENT;
+                state = NavigationState.ROOM_EVENT; // enter room after chosen
             }
 
-            if (playerSelection is false && playerRoom.GetComponent<RoomNode>().NextRooms != null)
+            else if (playerSelection is false && playerRoom.GetComponent<RoomNode>().NextRooms != null)
             {
                 paths = GeneratePaths();
-                paths.SetUpArrowSelect();
-                playerSelection = true;
+                paths.SetUpArrowSelect(); // set top arrow as selected
+                playerSelection = true; // phase where player is selecting a path
             }
 
             else if (playerSelection is false && playerRoom.GetComponent<RoomNode>().NextRooms == null)
@@ -201,7 +198,7 @@ public class NavigationSystem : MonoBehaviour
                 Application.Quit();
             }
 
-            if (Input.GetKey(KeyCode.M))
+            else if (Input.GetKey(KeyCode.M))
             {
                 // Load Menu Screen
                 SceneManager.LoadScene(3);
