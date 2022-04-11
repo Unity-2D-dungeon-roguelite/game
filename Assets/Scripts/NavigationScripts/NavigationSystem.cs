@@ -88,6 +88,12 @@ public class NavigationSystem : MonoBehaviour
                 Debug.Log("Enter");
                 EnterRoom();
             }
+
+            if (Input.GetKey(KeyCode.M))
+            {
+                // Load Menu Screen
+                SceneManager.LoadScene(3);
+            }
         }
 
         if (state == NavigationState.CHOOSE_PATH)
@@ -101,6 +107,13 @@ public class NavigationSystem : MonoBehaviour
             {
                 Debug.Log("Down");
             }
+
+            if (Input.GetKey(KeyCode.M))
+            {
+                // Load Menu Screen
+                SceneManager.LoadScene(3);
+            }
+
         }
     }
 }

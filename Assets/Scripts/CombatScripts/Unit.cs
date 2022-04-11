@@ -38,7 +38,8 @@ public class Unit : MonoBehaviour
 	{
 		currentSta += amount;
 	}
-	    public void Remove()
+	
+	public void Remove()
     {
         Destroy(this.gameObject);
     }
