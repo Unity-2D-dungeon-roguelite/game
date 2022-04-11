@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4143359174306599294}
   - component: {fileID: 6688692863134271683}
   - component: {fileID: -6370879858440086955}
+  - component: {fileID: -5369356837572291535}
   m_Layer: 0
   m_Name: Player_Navigation_Icon
   m_TagString: Untagged
@@ -93,5 +94,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f592f0e236bc9bc4d95b7b4d845b1f24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-5369356837572291535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3671556776659773366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37f465f7b8e938a43be07c8c0eacf832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

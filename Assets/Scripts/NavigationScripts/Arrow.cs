@@ -11,6 +11,9 @@ public class Arrow : MonoBehaviour, IComparable<Arrow>
     public Sprite unselect;
     public Sprite select;
 
+    /// <summary>
+    /// Changes the sprite between of the GameObject depending on its selected state
+    /// </summary>
     public void ChangeSprite()
     {
         if (selected is false)
@@ -18,9 +21,10 @@ public class Arrow : MonoBehaviour, IComparable<Arrow>
         else
             spriteRenderer.sprite = unselect;
         
-        selected = !selected;
+        selected = !selected; // flip the bool
     }
 
+    // Awake is called after all objects are initialized so you can safely speak to other objects 
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -39,6 +43,11 @@ public class Arrow : MonoBehaviour, IComparable<Arrow>
         
     }
 
+    /// <summary>
+    /// Compares arrows for iteration.
+    /// </summary>
+    /// <param name="other"></param>
+    /// <returns></returns>
     public int CompareTo(Arrow other)
     {
         if (other == null)

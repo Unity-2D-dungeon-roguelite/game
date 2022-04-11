@@ -6,13 +6,6 @@ public class PlayerMover : MonoBehaviour
 {
     private const float PLAYER_POSITION_OFFSET = 0.05F;
 
-    private GameObject _player;
-
-    private void Awake()
-    {
-        _player = gameObject;
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +18,13 @@ public class PlayerMover : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Changes the player's icon location to a new position.
+    /// </summary>
+    /// <param name="newPosition"> Vector3 </param>
     public void MovePlayerOnMap(Vector3 newPosition)
     {
         newPosition.y += PLAYER_POSITION_OFFSET;
-        _player.transform.position = newPosition;
+        gameObject.transform.position = newPosition;
     }
 }

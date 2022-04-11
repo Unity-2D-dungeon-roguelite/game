@@ -38,7 +38,7 @@ public class NavigationSystem : MonoBehaviour
     //state variables
     public NavigationState state;
     private bool playerSelection = false;
-    Paths paths;
+    private Paths paths;
 
     // Start is called before the first frame update
     void Start()

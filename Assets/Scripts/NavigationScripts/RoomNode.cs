@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class RoomNode : MonoBehaviour
 {
-
-    //private bool _hasPlayer;
     private GameObject[] _nextRooms;
-    /*
-    public bool HasPlayer
-    {
-        get { return _hasPlayer; }
-        set { _hasPlayer = value; }
-    }*/
 
     public GameObject[] NextRooms
     {
@@ -20,7 +12,7 @@ public class RoomNode : MonoBehaviour
         set { _nextRooms = value; }
     }
 
-    // Start is called before the first frame update
+    // Start is called before the first frame update, for variable initialization 
     void Start()
     {
         _nextRooms = null;
