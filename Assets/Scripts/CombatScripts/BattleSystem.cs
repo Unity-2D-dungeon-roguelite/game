@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 
@@ -47,6 +48,7 @@ public class BattleSystem : MonoBehaviour
 
 	void Start()
     {
+		GameObject.Find("NavigationSystem").GetComponent<NavigationSystem>().enabled = false;
 		skillsPanel.localScale = new Vector3(0, 0, 0);
 		state = BattleState.START;
 		StartCoroutine(SetupBattle());
@@ -214,6 +216,8 @@ public class BattleSystem : MonoBehaviour
 		if (state == BattleState.WON)
 		{
 			InfoText.text = "You won the battle!";
+			GameObject.Find("NavigationSystem").GetComponent<NavigationSystem>().enabled = true;
+			SceneManager.LoadScene("Navigation");
 		}
 		else if (state == BattleState.LOST)
 		{

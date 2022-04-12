@@ -84,6 +84,8 @@ public class EventPicker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject.Find("NavigationSystem").GetComponent<NavigationSystem>().enabled = false;
+
         random_event_num = Random.Range(1, event_max);  
         // display random event text
         change_event_text(random_event_num);
@@ -98,6 +100,7 @@ public class EventPicker : MonoBehaviour
             // Exit event screen, back to navigation
             result_event(random_event_num);
             // Return to navigation scene
+            GameObject.Find("NavigationSystem").GetComponent<NavigationSystem>().enabled = true;
             SceneManager.LoadScene(1);
         }
     }

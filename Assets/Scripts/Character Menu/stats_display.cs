@@ -13,6 +13,8 @@ public class stats_display : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject.Find("NavigationSystem").GetComponent<NavigationSystem>().enabled = false;
+        //nav.GetComponent<NavigationSystem>().enabled
         hpText.text = Player.health.ToString() + " / " + Player.maxHealth.ToString();
         staminaText.text = Player.stamina.ToString() + " / " + Player.maxStamina.ToString();
         levelText.text = Player.level.ToString();
@@ -23,6 +25,7 @@ public class stats_display : MonoBehaviour
         if ( Input.GetKey(KeyCode.M) || Input.GetKey(KeyCode.Escape) )
         {
             // Exit Menu screen, back to navigation
+            GameObject.Find("NavigationSystem").GetComponent<NavigationSystem>().enabled = true;
             SceneManager.LoadScene(1);
         }
     }

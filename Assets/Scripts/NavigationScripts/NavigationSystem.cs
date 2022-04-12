@@ -68,7 +68,9 @@ public class NavigationSystem : MonoBehaviour
 
     private void EnterRoom()
     {
-        SceneManager.LoadScene("Combat");
+        Debug.Log("Entered room");
+        //commented our because of error
+        SceneManager.LoadScene(4);
     }
 
     private Paths GeneratePaths()
