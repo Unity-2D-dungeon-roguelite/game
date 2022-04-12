@@ -61,8 +61,8 @@ public class NavigationSystem : MonoBehaviour
 
     private void EnterRoom()
     {
-        // Load room scene
-        //SceneManager.LoadScene(2);
+        // Load room event scene
+        SceneManager.LoadScene(4);
     }
 
     /// <summary>
