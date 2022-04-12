@@ -12,13 +12,16 @@ public class EventPicker : MonoBehaviour
     // current number of implemented events
     private static int event_max = 7;
     private int random_event_num = 1;
+    // combat encounter trigger
+    public bool encounter = false;
 
-    private void change_event_text(int event_num) 
+    private void change_event_text(int event_num)
     {
         string event_string = "";
         string result_string = "";
 
-        switch (event_num) {
+        switch (event_num)
+        {
             case 1:
                 event_string = "You enter an ominous room, filled with many bones and skeletons of possibly former adventurers...but why are they moving? 4 skeletons reconstuct and emerge in front of you, eager to turn you into one of them.";
                 result_string = "Prepare for a battle encounter!";
@@ -53,13 +56,13 @@ public class EventPicker : MonoBehaviour
         result_text.text = result_string;
     }
 
-    private void result_event(int event_num) 
+    private void result_event(int event_num)
     {
         switch (event_num)
         {
             case 1:
                 // Enter combat scene
-                SceneManager.LoadScene(2);
+                encounter = true;
                 break;
             case 2:
                 break;
@@ -86,7 +89,7 @@ public class EventPicker : MonoBehaviour
     {
         GameObject.Find("NavigationSystem").GetComponent<NavigationSystem>().enabled = false;
 
-        random_event_num = Random.Range(1, event_max);  
+        random_event_num = Random.Range(1, event_max);
         // display random event text
         change_event_text(random_event_num);
     }
@@ -97,11 +100,19 @@ public class EventPicker : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return))
         {
             Debug.Log("Enter " + Time.frameCount);
-            // Exit event screen, back to navigation
+            // Trigger event
             result_event(random_event_num);
-            // Return to navigation scene
-            GameObject.Find("NavigationSystem").GetComponent<NavigationSystem>().enabled = true;
-            SceneManager.LoadScene(1);
-        }
+            // Trigger encounter
+            if (encounter == true)
+            {
+                Debug.Log("Encounter");
+                SceneManager.LoadScene(2);
+            }
+            else {
+                // Return to navigation scene
+                GameObject.Find("NavigationSystem").GetComponent<NavigationSystem>().enabled = true;
+                SceneManager.LoadScene(1);
+            }
+        } 
     }
 }
