@@ -106,6 +106,7 @@
     <Compile Include="Assets\Scripts\NavigationScripts\PlayerMover.cs" />
     <Compile Include="Assets\Scripts\Character Menu\stats_display.cs" />
     <Compile Include="Assets\Scripts\NavigationScripts\DontDestroy.cs" />
+    <Compile Include="Assets\Scripts\NavigationScripts\DungeonMaker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\m\Shaders\TMPro.cginc" />

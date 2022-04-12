@@ -7,14 +7,8 @@ public enum NavigationState { ROOM_EVENT, CHOOSE_PATH, END}
 
 public class NavigationSystem : MonoBehaviour
 {
-
-    private const float PLAYER_POSITION_OFFSET = 0.05F;
     private const int UPWARD_ROTATION = -45;
     private const int DOWNWARD_ROTATION = -135;
-
-    //put in dungeon factory later
-    public const float ROOM_X_DISTANCE = 1.5F;
-    public const float ROOM_Y_DISTANCE = 1.4F;
     public const int ONE_ROOM_ARROW_X_DISTANCE = 1;
     public const float ARROW_X_DISTANCE = 0.75F;
     public const float ARROW_Y_DISTANCE = 0.7F;
@@ -38,19 +32,19 @@ public class NavigationSystem : MonoBehaviour
     //state variables
     public NavigationState state;
     private bool playerSelection = false;
+
     private Paths paths;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerRoom = startRoom;
-
         // create player game object and assign position
+        playerRoom = startRoom;
         player = Instantiate(playerObject);
-        //AdjustPlayerPosition(startRoom.transform.position, player);
-        player.GetComponent<PlayerMover>().MovePlayerOnMap(startRoom.transform.position);
+        player.GetComponent<PlayerMover>().MovePlayerOnMap(playerRoom.transform.position);
 
         // assign rooms' next rooms to traverse
+        
         startRoom.GetComponent<RoomNode>().NextRooms = new GameObject[] { room1 };
         room1.GetComponent<RoomNode>().NextRooms = new GameObject[] { room2, room3 };
         room2.GetComponent<RoomNode>().NextRooms = new GameObject[] { room4, room5 };
@@ -68,7 +62,7 @@ public class NavigationSystem : MonoBehaviour
     private void EnterRoom()
     {
         // Load room scene
-        //SceneManager.LoadScene("Combat");
+        //SceneManager.LoadScene(2);
     }
 
     /// <summary>
@@ -135,7 +129,6 @@ public class NavigationSystem : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return))
             {
-                Debug.Log("Enter " + Time.frameCount);
                 EnterRoom();
                 state = NavigationState.CHOOSE_PATH; // after room scene, choose next paths
             }
